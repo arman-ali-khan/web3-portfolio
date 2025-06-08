@@ -2,14 +2,29 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, ChevronDown } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { WalletConnect } from '@/components/web3/wallet-connect';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const navItems = [
-  { name: 'Home', href: '#home' },
+  { 
+    name: 'Home', 
+    href: '#home',
+    hasDropdown: true,
+    dropdownItems: [
+      { name: 'Home 1', href: '/' },
+      { name: 'Home 2', href: '/home2' }
+    ]
+  },
   { name: 'About', href: '#about' },
   { name: 'Portfolio', href: '#portfolio' },
   { name: 'Services', href: '#services' },
@@ -20,6 +35,8 @@ export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,11 +48,23 @@ export function Navigation() {
   }, []);
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      router.push(href);
     }
     setIsOpen(false);
+  };
+
+  const handleHomeNavigation = (href: string) => {
+    if (href === '/') {
+      router.push('/');
+    } else if (href === '/home2') {
+      router.push('/home2');
+    }
   };
 
   return (
@@ -56,7 +85,7 @@ export function Navigation() {
             className="flex-shrink-0"
           >
             <Link 
-              href="#home" 
+              href="/" 
               className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent hover:from-blue-600 hover:to-purple-700 transition-all duration-300"
             >
               Alex.dev
@@ -67,19 +96,52 @@ export function Navigation() {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-6 lg:space-x-8">
               {navItems.map((item, index) => (
-                <motion.button
-                  key={item.name}
-                  onClick={() => scrollToSection(item.href)}
-                  className="text-muted-foreground hover:text-foreground px-3 py-2 text-sm lg:text-base font-medium transition-colors duration-200 relative group"
-                  whileHover={{ y: -2 }}
-                  whileTap={{ y: 0 }}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  {item.name}
-                  <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-                </motion.button>
+                <div key={item.name}>
+                  {item.hasDropdown ? (
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <motion.button
+                          className="text-muted-foreground hover:text-foreground px-3 py-2 text-sm lg:text-base font-medium transition-colors duration-200 relative group flex items-center"
+                          whileHover={{ y: -2 }}
+                          whileTap={{ y: 0 }}
+                          initial={{ opacity: 0, y: -20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                        >
+                          {item.name}
+                          <ChevronDown className="ml-1 h-4 w-4" />
+                          <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                        </motion.button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="start" className="w-32">
+                        {item.dropdownItems?.map((dropdownItem) => (
+                          <DropdownMenuItem
+                            key={dropdownItem.name}
+                            onClick={() => handleHomeNavigation(dropdownItem.href)}
+                            className={`cursor-pointer ${
+                              pathname === dropdownItem.href ? 'bg-muted' : ''
+                            }`}
+                          >
+                            {dropdownItem.name}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  ) : (
+                    <motion.button
+                      onClick={() => scrollToSection(item.href)}
+                      className="text-muted-foreground hover:text-foreground px-3 py-2 text-sm lg:text-base font-medium transition-colors duration-200 relative group"
+                      whileHover={{ y: -2 }}
+                      whileTap={{ y: 0 }}
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                    >
+                      {item.name}
+                      <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                    </motion.button>
+                  )}
+                </div>
               ))}
             </div>
           </div>
@@ -148,16 +210,39 @@ export function Navigation() {
           >
             <div className="px-4 pt-2 pb-4 space-y-2">
               {navItems.map((item, index) => (
-                <motion.button
-                  key={item.name}
-                  onClick={() => scrollToSection(item.href)}
-                  className="text-muted-foreground hover:text-foreground block px-4 py-3 text-base font-medium w-full text-left rounded-lg hover:bg-muted/50 transition-colors duration-200"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                >
-                  {item.name}
-                </motion.button>
+                <div key={item.name}>
+                  {item.hasDropdown ? (
+                    <div className="space-y-1">
+                      <div className="text-muted-foreground px-4 py-3 text-base font-medium">
+                        {item.name}
+                      </div>
+                      {item.dropdownItems?.map((dropdownItem, dropdownIndex) => (
+                        <motion.button
+                          key={dropdownItem.name}
+                          onClick={() => handleHomeNavigation(dropdownItem.href)}
+                          className={`text-muted-foreground hover:text-foreground block px-8 py-2 text-base font-medium w-full text-left rounded-lg hover:bg-muted/50 transition-colors duration-200 ${
+                            pathname === dropdownItem.href ? 'bg-muted text-foreground' : ''
+                          }`}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.3, delay: (index + dropdownIndex) * 0.1 }}
+                        >
+                          {dropdownItem.name}
+                        </motion.button>
+                      ))}
+                    </div>
+                  ) : (
+                    <motion.button
+                      onClick={() => scrollToSection(item.href)}
+                      className="text-muted-foreground hover:text-foreground block px-4 py-3 text-base font-medium w-full text-left rounded-lg hover:bg-muted/50 transition-colors duration-200"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                    >
+                      {item.name}
+                    </motion.button>
+                  )}
+                </div>
               ))}
               <motion.div 
                 className="px-4 py-3"
