@@ -11,37 +11,6 @@ const skills = [
   'Metamask', 'WalletConnect', 'DeFi', 'NFTs', 'Smart Contracts', 'Ethereum'
 ];
 
-const experience = [
-  {
-    year: '2023 - Present',
-    title: 'Senior Web3 Developer',
-    company: 'DeFi Protocol Inc.',
-    description: 'Leading development of next-generation DeFi applications and smart contracts. Architected yield farming protocols handling $50M+ TVL.',
-    achievements: ['Built 15+ smart contracts', 'Zero security incidents', '$50M+ TVL managed']
-  },
-  {
-    year: '2022 - 2023',
-    title: 'Blockchain Developer',
-    company: 'NFT Marketplace',
-    description: 'Built scalable NFT trading platform with advanced smart contract functionality. Implemented gas-optimized minting and trading systems.',
-    achievements: ['10K+ NFTs minted', '99.9% uptime', 'Gas costs reduced by 40%']
-  },
-  {
-    year: '2021 - 2022',
-    title: 'Full Stack Developer',
-    company: 'Tech Startup',
-    description: 'Developed Web2 and Web3 applications with modern JavaScript frameworks. Transitioned company to blockchain technology.',
-    achievements: ['Led Web3 migration', '5 dApps launched', 'Team training completed']
-  },
-  {
-    year: '2020 - 2021',
-    title: 'Frontend Developer',
-    company: 'Digital Agency',
-    description: 'Created responsive web applications and user interfaces for various clients. Specialized in React and modern CSS frameworks.',
-    achievements: ['20+ projects delivered', '100% client satisfaction', 'Performance optimized']
-  }
-];
-
 const highlights = [
   {
     icon: Code,
@@ -81,9 +50,9 @@ const highlights = [
   }
 ];
 
-export function AboutSection() {
+export function AboutSectionV2() {
   return (
-    <section id="about" className="py-16 sm:py-20 lg:py-24">
+    <section id="about" className="py-16 sm:py-20 lg:py-24 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -101,32 +70,68 @@ export function AboutSection() {
           </p>
         </motion.div>
 
-        {/* Personal Statement */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <Card className="border-border/50 bg-gradient-to-br from-background to-muted/20">
-            <CardContent className="p-8 sm:p-12">
-              <div className="max-w-4xl mx-auto text-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
+          {/* Personal Bio */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="text-2xl sm:text-3xl font-semibold mb-6">My Journey</h3>
+            <div className="space-y-4 sm:space-y-6 text-muted-foreground text-base sm:text-lg leading-relaxed">
+              <p>
+                My journey into Web3 began in 2020 when I first discovered the revolutionary potential of 
+                blockchain technology. Since then, I've been dedicated to building the decentralized future 
+                through innovative smart contracts and DeFi protocols.
+              </p>
+              <p>
+                I've worked on everything from simple token contracts to complex DeFi protocols, 
+                always focusing on security, user experience, and innovation. My goal is to make 
+                Web3 accessible and beneficial for everyone.
+              </p>
+              <p>
+                When I'm not coding, you can find me contributing to open-source projects, 
+                writing technical articles, or exploring the latest trends in blockchain technology.
+                I believe in continuous learning and sharing knowledge with the community.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Personal Statement Card */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <Card className="border-border/50 bg-gradient-to-br from-background to-muted/20 h-full">
+              <CardContent className="p-8">
                 <h3 className="text-2xl sm:text-3xl font-semibold mb-6">My Mission</h3>
-                <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-6">
+                <p className="text-muted-foreground leading-relaxed mb-6">
                   I believe in the transformative power of blockchain technology to create a more decentralized, 
-                  transparent, and equitable digital future. My journey into Web3 began in 2020 when I first 
-                  discovered the revolutionary potential of smart contracts and decentralized finance.
+                  transparent, and equitable digital future.
                 </p>
-                <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
-                  Today, I'm dedicated to building innovative solutions that bridge the gap between traditional 
-                  finance and the decentralized ecosystem, always prioritizing security, user experience, and 
-                  real-world utility.
+                <p className="text-muted-foreground leading-relaxed">
+                  My mission is to bridge the gap between traditional finance and the decentralized ecosystem, 
+                  always prioritizing security, user experience, and real-world utility in every project I undertake.
                 </p>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+                <div className="mt-6 pt-6 border-t border-border/50">
+                  <div className="grid grid-cols-2 gap-4 text-center">
+                    <div>
+                      <div className="text-2xl font-bold text-primary">4+</div>
+                      <div className="text-sm text-muted-foreground">Years Experience</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-primary">150+</div>
+                      <div className="text-sm text-muted-foreground">Projects Completed</div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
 
         {/* Highlights Grid */}
         <motion.div
@@ -174,7 +179,6 @@ export function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="mb-16"
         >
           <h3 className="text-2xl sm:text-3xl font-semibold mb-8 text-center">Technical Skills</h3>
           <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
@@ -192,55 +196,6 @@ export function AboutSection() {
                 </Badge>
               </motion.div>
             ))}
-          </div>
-        </motion.div>
-
-        {/* Experience Timeline */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h3 className="text-2xl sm:text-3xl font-semibold mb-8 sm:mb-12 text-center">Professional Experience</h3>
-          <div className="relative max-w-4xl mx-auto">
-            <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-0.5 bg-border"></div>
-            <div className="space-y-8 sm:space-y-12">
-              {experience.map((exp, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: index * 0.2 }}
-                  viewport={{ once: true }}
-                  className="relative pl-12 sm:pl-20"
-                >
-                  <motion.div 
-                    className="absolute left-2 sm:left-6 top-2 w-4 h-4 bg-primary rounded-full border-4 border-background shadow-lg"
-                    whileHover={{ scale: 1.2 }}
-                  ></motion.div>
-                  <Card className="border-border/50 hover:border-border transition-all duration-300 hover:shadow-lg">
-                    <CardContent className="p-6 sm:p-8">
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
-                        <h4 className="text-xl sm:text-2xl font-semibold">{exp.title}</h4>
-                        <Badge variant="outline" className="mt-2 sm:mt-0 self-start sm:self-auto">
-                          {exp.year}
-                        </Badge>
-                      </div>
-                      <p className="text-primary font-medium mb-4 text-lg">{exp.company}</p>
-                      <p className="text-muted-foreground mb-4 leading-relaxed">{exp.description}</p>
-                      <div className="flex flex-wrap gap-2">
-                        {exp.achievements.map((achievement, i) => (
-                          <Badge key={i} variant="secondary" className="text-xs">
-                            {achievement}
-                          </Badge>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </motion.div>
       </div>

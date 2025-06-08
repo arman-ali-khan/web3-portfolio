@@ -1,9 +1,9 @@
 import { HeroSectionV2 } from '@/components/sections/hero-section-v2';
-import { FeaturesSection } from '@/components/sections/features-section';
-import { StatsSection } from '@/components/sections/stats-section';
-import { TechnologiesSection } from '@/components/sections/technologies-section';
-import { TestimonialsSection } from '@/components/sections/testimonials-section';
-import { CtaSection } from '@/components/sections/cta-section';
+import { AboutSectionV2 } from '@/components/sections/about-section-v2';
+import { ExperienceSectionV2 } from '@/components/sections/experience-section-v2';
+import { PortfolioSectionV2 } from '@/components/sections/portfolio-section-v2';
+import { ServicesSectionV2 } from '@/components/sections/services-section-v2';
+import { ContactSectionV2 } from '@/components/sections/contact-section-v2';
 import { Navigation } from '@/components/layout/navigation';
 import { Footer } from '@/components/layout/footer';
 
@@ -13,11 +13,11 @@ export default function Home2() {
       <Navigation />
       <main>
         <HeroSectionV2 />
-        <FeaturesSection />
-        <StatsSection />
-        <TechnologiesSection />
-        <TestimonialsSection />
-        <CtaSection />
+        <AboutSectionV2 />
+        <ExperienceSectionV2 />
+        <PortfolioSectionV2 />
+        <ServicesSectionV2 />
+        <ContactSectionV2 />
       </main>
       <Footer />
     </div>

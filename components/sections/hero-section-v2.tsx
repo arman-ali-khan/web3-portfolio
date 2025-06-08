@@ -1,13 +1,20 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, Sparkles, Zap, Shield } from 'lucide-react';
+import { ArrowRight, Play, Sparkles, Zap, Shield, Github, Twitter, Linkedin, Mail, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
 export function HeroSectionV2() {
+  const socialLinks = [
+    { icon: Github, href: 'https://github.com/alexmorgan', label: 'GitHub' },
+    { icon: Twitter, href: 'https://twitter.com/alexmorgan_dev', label: 'Twitter' },
+    { icon: Linkedin, href: 'https://linkedin.com/in/alexmorgan-dev', label: 'LinkedIn' },
+    { icon: Mail, href: 'mailto:alex@alexmorgan.dev', label: 'Email' }
+  ];
+
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative min-h-screen mt-32 flex items-center justify-center overflow-hidden">
       {/* Advanced Background with Grid Pattern */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20" />
@@ -158,10 +165,38 @@ export function HeroSectionV2() {
                   size="lg" 
                   className="px-8 py-6 text-base border-2 hover:bg-muted/50 transition-all duration-300 group"
                 >
-                  <Play className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-                  Watch Demo
+                  <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+                  Download Resume
                 </Button>
               </motion.div>
+            </motion.div>
+
+            {/* Social Media Icons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="flex items-center space-x-4"
+            >
+              <span className="text-sm text-muted-foreground font-medium">Follow me:</span>
+              <div className="flex space-x-3">
+                {socialLinks.map((social, index) => (
+                  <motion.a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-full bg-muted/50 hover:bg-muted transition-all duration-300 group"
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.9 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.9 + index * 0.1 }}
+                  >
+                    <social.icon className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </motion.a>
+                ))}
+              </div>
             </motion.div>
           </motion.div>
 

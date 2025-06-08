@@ -1,8 +1,16 @@
-import { Github, Twitter, Linkedin, Mail } from 'lucide-react';
+import { Github, Twitter, Linkedin, Mail, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+
+  const socialLinks = [
+    { icon: Github, href: 'https://github.com/alexmorgan', label: 'GitHub' },
+    { icon: Twitter, href: 'https://twitter.com/alexmorgan_dev', label: 'Twitter' },
+    { icon: Linkedin, href: 'https://linkedin.com/in/alexmorgan-dev', label: 'LinkedIn' },
+    { icon: Instagram, href: 'https://instagram.com/alexmorgan.dev', label: 'Instagram' },
+    { icon: Mail, href: 'mailto:alex@alexmorgan.dev', label: 'Email' }
+  ];
 
   return (
     <footer className="bg-muted/50 border-t border-border">
@@ -14,21 +22,36 @@ export function Footer() {
               Alex.dev
             </h3>
             <p className="text-muted-foreground mb-6 max-w-md text-base sm:text-lg leading-relaxed">
-              Building the future of the web with blockchain technology and innovative solutions.
+              Building the future of the web with blockchain technology and innovative solutions. Transforming ideas into decentralized reality.
             </p>
-            <div className="flex space-x-4">
-              <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full hover:bg-muted/80 transition-colors duration-300">
-                <Github className="h-5 w-5" />
-              </Button>
-              <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full hover:bg-muted/80 transition-colors duration-300">
-                <Twitter className="h-5 w-5" />
-              </Button>
-              <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full hover:bg-muted/80 transition-colors duration-300">
-                <Linkedin className="h-5 w-5" />
-              </Button>
-              <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full hover:bg-muted/80 transition-colors duration-300">
-                <Mail className="h-5 w-5" />
-              </Button>
+            
+            {/* Social Media Links */}
+            <div className="flex space-x-4 mb-6">
+              {socialLinks.map((social) => (
+                <Button 
+                  key={social.label}
+                  variant="ghost" 
+                  size="icon" 
+                  className="h-10 w-10 rounded-full hover:bg-muted/80 transition-all duration-300 hover:scale-110"
+                  asChild
+                >
+                  <a 
+                    href={social.href} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                  >
+                    <social.icon className="h-5 w-5" />
+                  </a>
+                </Button>
+              ))}
+            </div>
+
+            {/* Contact Info */}
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p>📧 alex@alexmorgan.dev</p>
+              <p>📱 +1 (555) 123-4567</p>
+              <p>📍 San Francisco, CA</p>
             </div>
           </div>
 
@@ -51,14 +74,23 @@ export function Footer() {
               <li className="text-muted-foreground text-base">DeFi Development</li>
               <li className="text-muted-foreground text-base">NFT Platforms</li>
               <li className="text-muted-foreground text-base">Web3 Consulting</li>
+              <li className="text-muted-foreground text-base">Security Audits</li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-border mt-12 pt-8 text-center">
-          <p className="text-muted-foreground text-base">
-            © {currentYear} Alex Morgan. All rights reserved. Built with Next.js and Web3 technologies.
-          </p>
+        <div className="border-t border-border mt-12 pt-8">
+          <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+            <p className="text-muted-foreground text-base text-center sm:text-left">
+              © {currentYear} Alex Morgan. All rights reserved. Built with Next.js and Web3 technologies.
+            </p>
+            
+            {/* Additional Links */}
+            <div className="flex space-x-6 text-sm">
+              <a href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</a>
+              <a href="/terms" className="text-muted-foreground hover:text-foreground transition-colors">Terms of Service</a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
